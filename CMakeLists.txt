@@ -93,6 +93,8 @@ set(MATERIALX_OIIO_DIR "" CACHE PATH "Path to the root folder of the OpenImageIO
 set(MATERIALX_INSTALL_INCLUDE_PATH "include" CACHE STRING "Install header include path (e.g. 'inc', 'include').")
 set(MATERIALX_INSTALL_LIB_PATH "lib" CACHE STRING "Install lib path (e.g. 'libs', 'lib').")
 set(MATERIALX_INSTALL_STDLIB_PATH "libraries" CACHE STRING "Install path for mtlx std libs (e.g. 'libraries').")
+set(MATERIALX_INSTALL_RESOURCES_PATH "resources" CACHE STRING "Install path for resources (e.g. 'resources').")
+set(MATERIALX_INSTALL_MISC_PATH "." CACHE STRING "Install path for misc files (license, changelogs etc).")
 
 # Helpers for OSL validation
 set(MATERIALX_OSL_BINARY_OSLC "" CACHE FILEPATH "Full path to the OSL compiler binary.")
@@ -354,7 +356,7 @@ endif()
 # Install root-level documents
 if(NOT SKBUILD)
     install(FILES LICENSE CHANGELOG.md README.md THIRD-PARTY.md
-            DESTINATION .)
+            DESTINATION ${MATERIALX_INSTALL_MISC_PATH})
 
     set(MATERIALX_GEN_CONFIG_PATH "${MATERIALX_INSTALL_LIB_PATH}/cmake/${CMAKE_PROJECT_NAME}")
 

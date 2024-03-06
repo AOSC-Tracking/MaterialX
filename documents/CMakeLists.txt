@@ -30,5 +30,5 @@ if(DOXYGEN_FOUND)
                        COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/documents/Images ${CMAKE_CURRENT_BINARY_DIR})
     install(DIRECTORY ${DOXYGEN_HTML_OUTPUT_DIR}
-            DESTINATION "documents" MESSAGE_NEVER)
+	    DESTINATION "/share/doc/materialx/" MESSAGE_NEVER)
 endif(DOXYGEN_FOUND)
