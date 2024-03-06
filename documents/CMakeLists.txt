@@ -20,15 +20,16 @@ find_package(Doxygen)
 
 if(DOXYGEN_FOUND)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    configure_file(DoxygenAwesome/doxygen-awesome.css doxygen-awesome.css COPYONLY)
+    file(GLOB IMAGES "Images/*")
+    foreach(IMAGE ${IMAGES})
+        get_filename_component(IMGAE_FILE ${IMAGE} NAME)
+        configure_file(${IMAGE} ${IMGAE_FILE} COPYONLY)
+    endforeach()
     add_custom_target(MaterialXDocs ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                      DEPENDS doxygen-awesome.css MaterialXLogo_200x155.png
                       COMMENT "Generating HTML documentation: ${DOXYGEN_HTML_OUTPUT_DIR}/index.html")
-    add_custom_command(TARGET MaterialXDocs PRE_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/documents/DoxygenAwesome ${CMAKE_CURRENT_BINARY_DIR})
-    add_custom_command(TARGET MaterialXDocs PRE_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/documents/Images ${CMAKE_CURRENT_BINARY_DIR})
     install(DIRECTORY ${DOXYGEN_HTML_OUTPUT_DIR}
 	    DESTINATION "/share/doc/materialx/" MESSAGE_NEVER)
 endif(DOXYGEN_FOUND)
